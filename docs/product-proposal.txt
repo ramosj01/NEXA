@@ -1,0 +1,169 @@
+NEXA CHAT APP — PRODUCT VISION AND FEATURE PROPOSAL
+
+1.  PRODUCT DIRECTION
+
+Rather than building another WhatsApp or Telegram clone, position NEXA
+as a next-generation smart messaging platform that combines messaging,
+productivity, privacy, and intelligent automation.
+
+The goal is to give users useful capabilities beyond sending messages.
+
+2.  TEN DIFFERENTIATING FEATURES
+
+1)  AI Conversation Assistant
+
+-   Summarize long conversations.
+-   Find decisions and important details.
+-   Suggest intelligent replies.
+-   Translate messages. Example: “Summarize what we discussed in this
+    group yesterday.”
+
+2)  Chat-to-Task
+
+-   Convert any message into a task.
+-   Assign tasks to group members.
+-   Set deadlines and reminders.
+-   Track completion inside the conversation. Example: Turn “Submit the
+    report Friday” into a task with one tap.
+
+3)  Smart Inbox
+
+-   Separate personal, work, and important messages.
+-   Identify potentially urgent conversations.
+-   Highlight unanswered messages.
+-   Remind users about pending replies.
+
+4)  Decision Rooms
+
+-   Create polls inside conversations.
+-   Vote on proposals.
+-   Record final decisions.
+-   Keep a decision history. Example: A team votes on a meeting date.
+
+5)  Trust & Safety Center
+
+-   Verified user identities.
+-   Suspicious-link warnings.
+-   Login and device monitoring.
+-   Message privacy controls.
+-   Report and block functionality.
+
+6)  Offline-First Messaging
+
+-   Compose messages without internet access.
+-   Queue outgoing messages.
+-   Synchronize automatically when connectivity returns.
+-   Compress media for slower connections.
+
+7)  Calendar Inside Chat
+
+-   Create events from messages.
+-   Share schedules.
+-   Send automatic reminders.
+-   Check group availability.
+
+8)  Voice Intelligence
+
+-   Transcribe voice messages.
+-   Summarize long voice recordings.
+-   Search voice-message transcripts.
+-   Translate transcribed messages.
+
+9)  Shared Workspace
+
+-   Shared documents and files.
+-   Group notes.
+-   Shared checklists.
+-   Searchable conversation attachments.
+
+10) Adaptive Chat Experience
+
+-   Personalized themes.
+-   Custom chat layouts.
+-   Per-contact notification styles.
+-   Dynamic interface based on user preferences.
+
+3.  SIGNATURE FEATURE: NEXA SMARTSPACE
+
+NEXA SmartSpace combines messaging with a personal productivity
+assistant.
+
+A conversation has three layers:
+
+A. CHAT Normal messaging, voice messages, images, and files.
+
+B. ACTIONS Tasks, reminders, polls, events, and decisions extracted from
+messages.
+
+C. INTELLIGENCE AI summaries, intelligent search, and recommendations.
+
+Example: A group member sends: “We need to finish the project proposal
+by Friday. John handles the budget and Sarah handles the presentation.”
+
+NEXA could suggest these tasks: - Prepare project budget — John -
+Prepare presentation — Sarah - Deadline — Friday
+
+Users should review and approve suggested tasks before they are created
+or assigned.
+
+4.  SUGGESTED DEVELOPMENT ROADMAP
+
+MVP (first release) - Real-time messaging - Chat-to-Task - Smart Inbox -
+Polls and decisions
+
+Version 2 - Voice transcription - AI conversation assistant - Calendar
+integration
+
+Version 3 - Shared workspace - More advanced productivity and
+collaboration features
+
+Build the core messaging experience first. Add advanced features in
+stages based on user feedback and actual usage.
+
+5.  TECHNICAL DIRECTION
+
+Suggested technology stack:
+
+-   Mobile UI: Flutter
+-   Backend API: FastAPI
+-   Authentication: Firebase Authentication
+-   Real-time messaging: WebSockets
+-   Database: PostgreSQL
+-   Push notifications: Firebase Cloud Messaging
+-   File storage: AWS S3
+-   AI services: LLM API with opt-in processing
+
+The final architecture should be validated against expected user volume,
+security requirements, hosting costs, and operational needs.
+
+6.  PRIVACY AND SECURITY CONSIDERATIONS
+
+AI processing and end-to-end encryption need careful separation.
+
+-   Do not silently send private encrypted messages to an AI service.
+-   Make AI processing transparent and opt-in.
+-   Explain what data is processed and where it is sent.
+-   Protect authentication tokens, files, and message data.
+-   Provide clear privacy controls and account security options.
+
+7.  PRODUCT STRATEGY DECISIONS TO MAKE
+
+Before finalizing the product architecture, decide:
+
+Target audience: - General public, like WhatsApp - Companies and
+employees - Communities and organizations - Small businesses and
+customers
+
+Main differentiator: - AI-powered messaging - Privacy and security -
+Messaging plus productivity - All-in-one super app
+
+Business model: - Free with premium features - Subscription - Business
+licensing - Not decided yet
+
+8.  PRODUCT VISION
+
+Do not compete with WhatsApp only on how people send messages. Compete
+on what people can accomplish through those messages.
+
+NEXA’s opportunity is to turn conversations into useful actions while
+keeping messaging simple, reliable, and secure.
