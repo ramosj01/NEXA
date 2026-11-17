@@ -11,7 +11,7 @@ from .config import settings
 from .db import SessionLocal, get_db, init_db
 from .models import User
 from .realtime import manager
-from .routers import conversations, inbox, polls, tasks
+from .routers import assistant, conversations, inbox, polls, tasks
 from .schemas import MessageCreate, UserOut
 from .services import create_message, member_ids, message_event
 
@@ -29,7 +29,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-for r in (conversations.router, tasks.router, polls.router, inbox.router):
+for r in (conversations.router, tasks.router, polls.router, inbox.router, assistant.router):
     app.include_router(r)
 
 

@@ -3,5 +3,7 @@ uvicorn[standard]>=0.30
 sqlalchemy>=2.0
 pydantic>=2.7
 psycopg[binary]>=3.1
+# NEXA Assistant (Claude). Needs ANTHROPIC_API_KEY at runtime.
+anthropic>=2.9
 # Production auth (Firebase ID-token verification). Optional in dev mode.
 firebase-admin>=6.5

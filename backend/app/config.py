@@ -10,6 +10,8 @@ class Settings:
     database_url: str = os.getenv("NEXA_DATABASE_URL", "sqlite:///./nexa-dev.db")
     # "firebase" verifies Firebase ID tokens; "dev" accepts "dev:<uid>" tokens.
     auth_mode: str = os.getenv("NEXA_AUTH_MODE", "dev")
+    # Model behind the NEXA Assistant; the key comes from ANTHROPIC_API_KEY.
+    assistant_model: str = os.getenv("NEXA_ASSISTANT_MODEL", "claude-opus-5-5")
     cors_origins: tuple[str, ...] = tuple(
         o for o in os.getenv("NEXA_CORS_ORIGINS", "*").split(",") if o
     )

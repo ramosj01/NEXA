@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'chats_screen.dart';
+import '../assistant/jarvis_controller.dart';
 import 'groups_screen.dart';
+import 'jarvis_screen.dart';
 import 'profile_screen.dart';
 
 class HomeShell extends StatefulWidget {
@@ -13,10 +15,29 @@ class HomeShell extends StatefulWidget {
 
 class _HomeShellState extends State<HomeShell> {
   int _index = 0;
+  static const _jarvisTab = 2;
+
+  @override
+  void initState() {
+    super.initState();
+    jarvis.showRequests.addListener(_showJarvis);
+  }
+
+  @override
+  void dispose() {
+    jarvis.showRequests.removeListener(_showJarvis);
+    super.dispose();
+  }
+
+  void _showJarvis() {
+    Navigator.of(context).popUntil((r) => r.isFirst);
+    setState(() => _index = _jarvisTab);
+  }
 
   static const _pages = <Widget>[
     ChatsScreen(),
     GroupsScreen(),
+    JarvisScreen(),
     _Placeholder(icon: Icons.call_rounded, label: 'Calls'),
     ProfileScreen(),
   ];
@@ -38,6 +59,11 @@ class _HomeShellState extends State<HomeShell> {
             icon: Icon(Icons.groups_outlined),
             selectedIcon: Icon(Icons.groups_rounded),
             label: 'Groups',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.blur_circular_rounded),
+            selectedIcon: Icon(Icons.blur_on_rounded),
+            label: 'Jarvis',
           ),
           NavigationDestination(
             icon: Icon(Icons.call_outlined),

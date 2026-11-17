@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
+import 'assistant/background_service.dart';
+import 'assistant/jarvis_controller.dart';
 import 'screens/home_shell.dart';
 import 'theme/nexa_theme.dart';
 
 /// App-wide theme mode; Profile lets the user switch it.
 final themeMode = ValueNotifier(ThemeMode.system);
 
-void main() => runApp(const NexaApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  JarvisBackground.init();
+  runApp(const NexaApp());
+  // Restores the wake word / background service the user left switched on.
+  jarvis.init();
+}
 
 class NexaApp extends StatelessWidget {
   const NexaApp({super.key});
@@ -21,7 +30,7 @@ class NexaApp extends StatelessWidget {
         theme: NexaTheme.light(),
         darkTheme: NexaTheme.dark(),
         themeMode: mode,
-        home: const HomeShell(),
+        home: const WithForegroundTask(child: HomeShell()),
       ),
     );
   }
