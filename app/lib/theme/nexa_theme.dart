@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'nexa_colors.dart';
 
@@ -38,8 +37,13 @@ abstract final class NexaTheme {
       outlineVariant: c.divider,
     );
 
-    final base = ThemeData(useMaterial3: true, colorScheme: scheme, brightness: brightness);
-    final text = GoogleFonts.interTextTheme(base.textTheme).apply(
+    final base = ThemeData(
+      useMaterial3: true,
+      colorScheme: scheme,
+      brightness: brightness,
+      fontFamily: 'Inter',
+    );
+    final text = base.textTheme.apply(
       bodyColor: c.textPrimary,
       displayColor: c.textPrimary,
     );

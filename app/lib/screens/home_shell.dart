@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'chats_screen.dart';
+import 'groups_screen.dart';
 import 'profile_screen.dart';
 
 class HomeShell extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomeShellState extends State<HomeShell> {
 
   static const _pages = <Widget>[
     ChatsScreen(),
-    _Placeholder(icon: Icons.groups_rounded, label: 'Groups'),
+    GroupsScreen(),
     _Placeholder(icon: Icons.call_rounded, label: 'Calls'),
     ProfileScreen(),
   ];

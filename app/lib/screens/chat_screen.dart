@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../data/demo_data.dart';
 import '../theme/nexa_colors.dart';
+import '../widgets/avatar.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/message_bubble.dart';
+import '../widgets/typing_indicator.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, required this.title});
-  final String title;
+  const ChatScreen({super.key, required this.chat});
+  final DemoChat chat;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final _messages = List<DemoMessage>.of(demoMessages);
+  late final _messages = demoMessagesFor(widget.chat);
   final _input = TextEditingController();
 
   @override
@@ -33,6 +35,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   /// Chat-to-Task: the user reviews the suggested task before it is created.
   Future<void> _createTask(DemoMessage m) async {
+    if (m.kind != MessageKind.text) return;
     final created = await showModalBottomSheet<bool>(
       context: context,
       showDragHandle: true,
@@ -47,40 +50,65 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final c = context.nexa;
+    final chat = widget.chat;
+    final primary = Theme.of(context).colorScheme.primary;
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        titleSpacing: 0,
+        title: Row(
+          children: [
+            NexaAvatar(name: chat.name, size: 40, online: chat.online, isGroup: chat.isGroup),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(chat.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  Row(
+                    children: [
+                      if (chat.online) ...[
+                        const Icon(Icons.circle, size: 8, color: NexaStatus.success),
+                        const SizedBox(width: 4),
+                      ],
+                      Text(
+                        chat.isGroup ? '${chat.members} members' : (chat.online ? 'Online' : 'Last seen recently'),
+                        style: TextStyle(fontSize: 12, color: c.textSecondary, fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.call_outlined)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.task_alt_rounded), tooltip: 'Tasks & decisions'),
+          IconButton(onPressed: () {}, icon: Icon(Icons.call_rounded, color: primary), tooltip: 'Call'),
+          IconButton(onPressed: () {}, icon: Icon(Icons.videocam_rounded, color: primary), tooltip: 'Video call'),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_rounded)),
         ],
       ),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: _messages.length,
-              itemBuilder: (_, i) {
-                final m = _messages[i];
-                return MessageBubble(
-                  text: m.body,
-                  time: m.time,
-                  mine: m.mine,
-                  read: m.read,
-                  onLongPress: () => _createTask(m),
-                );
-              },
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+              children: [
+                for (final m in _messages) MessageBubble(message: m, onLongPress: () => _createTask(m)),
+                const TypingIndicator(),
+              ],
             ),
           ),
-          Divider(color: c.divider),
           SafeArea(
             top: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+              padding: const EdgeInsets.fromLTRB(8, 6, 8, 8),
               child: Row(
                 children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.add_circle_outline_rounded, color: c.textSecondary)),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.add_circle_outline_rounded, color: c.textSecondary),
+                    tooltip: 'Attach',
+                  ),
                   Expanded(
                     child: TextField(
                       controller: _input,
@@ -88,18 +116,24 @@ class _ChatScreenState extends State<ChatScreen> {
                       maxLines: 5,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
-                        hintText: 'Message',
+                        hintText: 'Type a message...',
                         suffixIcon: IconButton(
                           onPressed: () {},
-                          icon: Icon(Icons.emoji_emotions_outlined, color: c.textSecondary),
+                          icon: Icon(Icons.sentiment_satisfied_alt_rounded, color: c.textSecondary),
                         ),
                       ),
                       onSubmitted: (_) => _send(),
                     ),
                   ),
                   const SizedBox(width: 8),
-                  DecoratedBox(
-                    decoration: const BoxDecoration(gradient: NexaBrand.ctaGradient, shape: BoxShape.circle),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: NexaBrand.ctaGradient,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(color: NexaBrand.indigo.withValues(alpha: 0.3), blurRadius: 10, offset: const Offset(0, 4)),
+                      ],
+                    ),
                     child: IconButton(
                       onPressed: _send,
                       icon: const Icon(Icons.send_rounded, color: Colors.white),
@@ -145,7 +179,7 @@ class _TaskSheetState extends State<_TaskSheet> {
         children: [
           Text('Create task from message', style: text.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
           const SizedBox(height: 16),
-          TextField(controller: _title, decoration: const InputDecoration(labelText: 'Task')),
+          TextField(controller: _title, maxLines: 3, minLines: 1, decoration: const InputDecoration(labelText: 'Task')),
           const SizedBox(height: 12),
           OutlinedButton.icon(
             icon: const Icon(Icons.event_rounded),

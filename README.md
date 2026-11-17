@@ -63,7 +63,12 @@ flutter pub get
 flutter run
 ```
 
-The app currently runs on demo data: Smart Inbox list with filters, chat
-screen (long-press a message → create task), profile with online toggle and
-light/dark/system theme. Colors live in `lib/theme/nexa_colors.dart`, matching
+![NEXA light](design/snapshots/nexa-light.png)
+![NEXA dark](design/snapshots/nexa-dark.png)
+
+The app runs on demo data, following `design/mockups/nexa-chat-screens.png`:
+Chat List (stories row; Smart Inbox filters in the ⋮ menu), Conversation
+(text, photo, voice, reactions, typing; long-press a message → create task),
+Groups, Profile and Settings (light/dark/auto theme). Inter is bundled under
+`assets/fonts/inter` (OFL) so text renders correctly offline. Colors live in `lib/theme/nexa_colors.dart`, matching
 `design/tokens.json`.

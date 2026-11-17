@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +18,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # Inter is bundled (not fetched at runtime) so text lays out correctly on
+  # first frame and the app looks right offline. License: assets/fonts/inter/OFL.txt
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Regular.ttf
+        - asset: assets/fonts/inter/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/inter/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/inter/Inter-Bold.ttf
+          weight: 700
